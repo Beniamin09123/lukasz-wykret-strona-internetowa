@@ -46,7 +46,7 @@ const testimonials = [
   },
   {
     content: (<>
-      Bank twierdził, że uruchomienie kredytu szybciej niż w 8 tygodni jest nierealne — Łukasz zrobił to w 3. Uratował mi termin u dewelopera i tysiące złotych kar. <strong className="text-black">wiedział</strong>, kogo nacisnąć i co zrobić, żeby się udało. To jest <strong className="text-black">wsparcie, którego nie dostaniesz nigdzie indziej</strong>.
+      Bank twierdził, że uruchomienie kredytu szybciej niż w 8 tygodni jest nierealne — Łukasz zrobił to w 3. Uratował mi termin u dewelopera i tysiące złotych kar. <strong className="text-black">Wiedział kogo nacisnąć i co zrobić</strong>, żeby się udało. To jest <strong className="text-black">wsparcie, którego nie dostaniesz nigdzie indziej</strong>.
     </>),
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
     name: "Piotr M.",
