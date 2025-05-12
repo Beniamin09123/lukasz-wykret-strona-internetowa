@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 4%;
+    --primary: 32 27% 84%;
+    --muted: 217 10% 25%;
+    --border: 217 15% 35%;
+    --ring: 32 27% 84%;
+    --accent: 217 10% 25%;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    @apply text-foreground antialiased;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'DM Serif Display';
+    src: url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+    font-display: swap;
+  }
+}
+
+/* Common section background */
+.section-gradient {
+  @apply relative overflow-hidden;
+  background-color: #FFFFFF;
+}
+
+/* Gradient text styles */
+.gradient-text {
+  background: linear-gradient(to right, #2C65C8, #8596EA);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-icon {
+  color: transparent;
+  background: linear-gradient(to right, #2C65C8, #8596EA);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Button styles */
+.cta-button {
+  @apply flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-xl font-medium text-base md:text-lg text-white;
+  background-color: #2C65C8;
+  box-shadow: 6px 8px 16px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  box-shadow: 8px 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.cta-button:focus {
+  @apply outline-none ring-2 ring-[#2C65C8]/50 ring-offset-2 ring-offset-background;
+}
+
+/* Card styles */
+.feature-card {
+  @apply relative p-6 md:p-8 rounded-2xl;
+  background-color: #FFFFFF;
+  @apply border-[#2C65C8]/20 border;
+  @apply transition-all duration-300;
+  @apply hover:border-[#2C65C8]/40;
+  @apply hover:shadow-[#2C65C8]/5 hover:shadow-lg;
+}
+
+/* Navigation styles */
+.nav-item {
+  @apply px-4 py-2 rounded-lg text-sm font-medium;
+  @apply text-foreground/70;
+  @apply transition-colors duration-200;
+  @apply hover:bg-[#2C65C8]/5;
+  @apply hover:text-foreground;
+  @apply focus:ring-[#2C65C8]/50;
+  @apply focus:outline-none focus:ring-2;
+}
+
+.nav-item.active {
+  @apply bg-[#2C65C8]/5 text-foreground;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive spacing utilities */
+@layer utilities {
+  .space-y-responsive {
+    @apply space-y-4 md:space-y-6 lg:space-y-8;
+  }
+  
+  .p-responsive {
+    @apply p-4 md:p-6 lg:p-8;
+  }
+}
