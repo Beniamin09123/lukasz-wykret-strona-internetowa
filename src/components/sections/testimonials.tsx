@@ -20,7 +20,7 @@ const testimonials = [
   },
   {
     content: (<>
-      Myślałem, że kredyt jest poza zasięgiem — dwa banki odmówiły. Łukasz znalazł rozwiązanie, którego inni nawet nie zaproponowali i <strong className="text-black">obniżył moją ratę o 700 zł</strong> miesięcznie. <strong className="text-black">wszystko wyjaśnił, poprowadził krok po kroku</strong>. Bez niego dalej płaciłbym za cudze błędy.
+      Myślałem, że kredyt jest poza zasięgiem — dwa banki odmówiły. Łukasz znalazł rozwiązanie, którego inni nawet nie zaproponowali i <strong className="text-black">obniżył moją ratę o 700 zł</strong> miesięcznie. <strong className="text-black">Wszystko wyjaśnił, poprowadził krok po kroku</strong>. Bez niego dalej płaciłbym za cudze błędy.
     </>),
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150",
     name: "Marek W.",
