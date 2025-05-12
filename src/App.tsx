@@ -58,7 +58,7 @@ function App() {
                 className="flex flex-col sm:flex-row items-start gap-4"
               >
                 <a href="/contact" className="cta-button group">
-                  UMÓW BEZPŁATNĄ KONSULTACJĘ
+                  Zrób Pierwszy Krok Już Dziś!
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </a>
               </motion.div>
