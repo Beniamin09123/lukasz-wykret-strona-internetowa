@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CalendarCheck, Send, CheckCircle } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { Footer } from './footer';
+import { supabase } from '@/lib/supabase';
 
 const services = [
   { value: 'hipoteczny', label: 'Kredyt Hipoteczny' },
@@ -24,6 +25,7 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showFooter, setShowFooter] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const formRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
@@ -43,7 +45,7 @@ export function Contact() {
   useEffect(() => {
     if (location.hash === '#form-top') {
       const scrollToForm = () => {
-        const offset = 80; // Height of the fixed navbar
+        const offset = 80;
         const elementPosition = formRef.current?.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -53,7 +55,6 @@ export function Contact() {
         });
       };
 
-      // Small delay to ensure DOM is ready
       setTimeout(scrollToForm, 100);
     }
   }, [location]);
@@ -89,12 +90,24 @@ export function Contact() {
     if (!validateForm()) return;
     
     setIsSubmitting(true);
+    setSubmitError('');
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const { error } = await supabase
+        .from('consultation_requests')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          service: formData.service,
+          message: formData.message
+        }]);
+
+      if (error) throw error;
+      
       setIsSubmitted(true);
     } catch (error) {
       console.error('Error submitting form:', error);
+      setSubmitError('Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.');
     } finally {
       setIsSubmitting(false);
     }
@@ -281,6 +294,10 @@ export function Contact() {
             </div>
             {errors.rodo && (
               <p className="text-sm text-red-500">{errors.rodo}</p>
+            )}
+
+            {submitError && (
+              <p className="text-sm text-red-500 text-center">{submitError}</p>
             )}
 
             <button
