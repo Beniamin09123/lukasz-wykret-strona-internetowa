@@ -1,7 +1,15 @@
 import { NavBar } from '@/components/ui/navbar';
 import { Footer } from '@/components/sections/footer';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function TermsPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location]);
+
   return (
     <div className="min-h-screen bg-white">
       <NavBar />
