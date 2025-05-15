@@ -1,14 +1,26 @@
 import ReactGA from 'react-ga4';
 
+const getDeviceType = () => {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    return 'tablet';
+  }
+  if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+    return 'mobile';
+  }
+  return 'desktop';
+};
+
 export const initGA = () => {
   ReactGA.initialize('G-5LQKN6TXK7', {
     gaOptions: {
-      // Enable session tracking
       send_page_view: true,
-      // Track user engagement
       user_properties: {
         first_visit_date: new Date().toISOString(),
-        user_type: isNewUser() ? 'new' : 'returning'
+        user_type: isNewUser() ? 'new' : 'returning',
+        device_type: getDeviceType(),
+        screen_resolution: `${window.screen.width}x${window.screen.height}`,
+        viewport_size: `${window.innerWidth}x${window.innerHeight}`
       }
     }
   });
@@ -28,9 +40,11 @@ export const logPageView = () => {
   ReactGA.send({ 
     hitType: "pageview", 
     page: window.location.pathname,
-    // Add user type dimension
     user_properties: {
-      user_type: isNewUser() ? 'new' : 'returning'
+      user_type: isNewUser() ? 'new' : 'returning',
+      device_type: getDeviceType(),
+      screen_resolution: `${window.screen.width}x${window.screen.height}`,
+      viewport_size: `${window.innerWidth}x${window.innerHeight}`
     }
   });
 };
@@ -40,9 +54,11 @@ export const logEvent = (category: string, action: string, label?: string) => {
     category,
     action,
     label,
-    // Add user type to events
     user_properties: {
-      user_type: isNewUser() ? 'new' : 'returning'
+      user_type: isNewUser() ? 'new' : 'returning',
+      device_type: getDeviceType(),
+      screen_resolution: `${window.screen.width}x${window.screen.height}`,
+      viewport_size: `${window.innerWidth}x${window.innerHeight}`
     }
   });
 };
