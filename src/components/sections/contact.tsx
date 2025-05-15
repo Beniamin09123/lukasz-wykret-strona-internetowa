@@ -4,6 +4,7 @@ import { CalendarCheck, Send, CheckCircle } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { Footer } from './footer';
 import { supabase } from '@/lib/supabase';
+import { logEvent } from '@/lib/analytics';
 
 const services = [
   { value: 'hipoteczny', label: 'Kredyt Hipoteczny' },
@@ -92,6 +93,8 @@ export function Contact() {
     setIsSubmitting(true);
     setSubmitError('');
 
+    logEvent('Contact', 'Form Submit', 'Contact Form');
+
     try {
       const { error } = await supabase
         .from('consultation_requests')
@@ -105,9 +108,11 @@ export function Contact() {
       if (error) throw error;
       
       setIsSubmitted(true);
+      logEvent('Contact', 'Form Success', 'Contact Form');
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitError('Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.');
+      logEvent('Contact', 'Form Error', 'Contact Form');
     } finally {
       setIsSubmitting(false);
     }
