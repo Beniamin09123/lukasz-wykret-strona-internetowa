@@ -11,6 +11,9 @@ const getDeviceType = () => {
   return 'desktop';
 };
 
+let pageLoadTime = Date.now();
+let sessionStartTime = Date.now();
+
 export const initGA = () => {
   ReactGA.initialize('G-5LQKN6TXK7', {
     gaOptions: {
@@ -23,6 +26,24 @@ export const initGA = () => {
         viewport_size: `${window.innerWidth}x${window.innerHeight}`
       }
     }
+  });
+
+  // Reset session start time
+  sessionStartTime = Date.now();
+  
+  // Track session duration when user leaves the page
+  window.addEventListener('beforeunload', () => {
+    const sessionDuration = Math.round((Date.now() - sessionStartTime) / 1000);
+    ReactGA.event({
+      category: 'Session',
+      action: 'Duration',
+      value: sessionDuration,
+      user_properties: {
+        session_duration_seconds: sessionDuration,
+        user_type: isNewUser() ? 'new' : 'returning',
+        device_type: getDeviceType()
+      }
+    });
   });
 };
 
@@ -37,6 +58,26 @@ const isNewUser = () => {
 };
 
 export const logPageView = () => {
+  // Calculate time spent on previous page
+  const timeSpent = Math.round((Date.now() - pageLoadTime) / 1000);
+  if (timeSpent > 0) {
+    ReactGA.event({
+      category: 'Page',
+      action: 'Time Spent',
+      value: timeSpent,
+      user_properties: {
+        page_duration_seconds: timeSpent,
+        user_type: isNewUser() ? 'new' : 'returning',
+        device_type: getDeviceType(),
+        screen_resolution: `${window.screen.width}x${window.screen.height}`,
+        viewport_size: `${window.innerWidth}x${window.innerHeight}`
+      }
+    });
+  }
+
+  // Reset page load time for new page
+  pageLoadTime = Date.now();
+
   ReactGA.send({ 
     hitType: "pageview", 
     page: window.location.pathname,
