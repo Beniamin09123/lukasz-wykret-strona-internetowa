@@ -1,7 +1,7 @@
 import ReactGA from 'react-ga4';
 
 export const initGA = () => {
-  ReactGA.initialize('G-5LQKN6TXK7'); // Replace with your Google Analytics measurement ID
+  ReactGA.initialize('G-5LQKN6TXK7');
 };
 
 export const logPageView = () => {
