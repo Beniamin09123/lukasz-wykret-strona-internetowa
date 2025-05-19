@@ -12,6 +12,12 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    fs: {
+      strict: true,
+      memoryLimit: 2048
+    }
+  },
   build: {
     rollupOptions: {
       output: {
