@@ -36,7 +36,7 @@ export function NavBar() {
     if (url.startsWith('/#')) {
       const element = document.querySelector(url.substring(1));
       if (element) {
-        element.scrollInView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } else {
       navigate(url);
