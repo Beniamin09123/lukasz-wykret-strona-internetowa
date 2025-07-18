@@ -96,6 +96,11 @@ export function Contact() {
     logEvent('Contact', 'Form Submit', 'Contact Form');
 
     try {
+      // Check if Supabase is properly configured
+      if (!supabase) {
+        throw new Error('Supabase client not initialized');
+      }
+
       const { error } = await supabase
         .from('consultation_requests')
         .insert([{
@@ -111,7 +116,18 @@ export function Contact() {
       logEvent('Contact', 'Form Success', 'Contact Form');
     } catch (error) {
       console.error('Error submitting form:', error);
-      setSubmitError('Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.');
+      
+      // More specific error messages
+      if (error.message?.includes('JWT')) {
+        setSubmitError('Problem z autoryzacją. Spróbuj odświeżyć stronę i wysłać formularz ponownie.');
+      } else if (error.message?.includes('network')) {
+        setSubmitError('Problem z połączeniem internetowym. Sprawdź połączenie i spróbuj ponownie.');
+      } else if (error.message?.includes('consultation_requests')) {
+        setSubmitError('Problem z bazą danych. Skontaktuj się bezpośrednio: kredyty@annderson.pl');
+      } else {
+        setSubmitError(`Wystąpił błąd: ${error.message || 'Nieznany błąd'}. Spróbuj ponownie lub skontaktuj się bezpośrednio: kredyty@annderson.pl`);
+      }
+      
       logEvent('Contact', 'Form Error', 'Contact Form');
     } finally {
       setIsSubmitting(false);
